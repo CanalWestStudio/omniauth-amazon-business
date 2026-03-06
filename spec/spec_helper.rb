@@ -1,7 +1,8 @@
-$:.unshift File.expand_path('..', __FILE__)
-$:.unshift File.expand_path('../../lib', __FILE__)
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
+
 require 'rspec'
 require 'rack/test'
 require 'webmock/rspec'
@@ -11,8 +12,5 @@ require 'omniauth-amazon'
 RSpec.configure do |config|
   config.include WebMock::API
   config.include Rack::Test::Methods
-  config.extend  OmniAuth::Test::StrategyMacros, :type => :strategy
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
+  config.extend OmniAuth::Test::StrategyMacros, type: :strategy
 end
