@@ -4,6 +4,10 @@
 
 ### Breaking Changes
 
+- Renamed gem from `omniauth-amazon` to `omniauth-amazon-business`
+- Provider name changed from `amazon` to `amazon_business`
+- Callback path changed from `/auth/amazon/callback` to `/auth/amazon_business/callback`
+- Module renamed from `OmniAuth::Amazon` to `OmniAuth::AmazonBusiness`
 - Require Ruby >= 3.1
 - Require OmniAuth ~> 2.0 and omniauth-oauth2 ~> 1.8
 - Target Amazon Business OAuth2 (`/b2b/abws/oauth`) exclusively

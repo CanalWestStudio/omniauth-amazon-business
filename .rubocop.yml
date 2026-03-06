@@ -13,7 +13,7 @@ Metrics/BlockLength:
 
 Naming/FileName:
   Exclude:
-    - 'lib/omniauth-amazon.rb'
+    - 'lib/omniauth-amazon-business.rb'
 
 Style/Documentation:
   Enabled: false

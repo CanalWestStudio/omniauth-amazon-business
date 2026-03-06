@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe OmniAuth::Strategies::Amazon do
+RSpec.describe OmniAuth::Strategies::AmazonBusiness do
   subject(:strategy) do
     described_class.new(app, 'client_id', 'client_secret', **options).tap do |s|
       allow(s).to receive(:request).and_return(request)
@@ -102,13 +102,13 @@ RSpec.describe OmniAuth::Strategies::Amazon do
     it 'returns the callback path without query parameters' do
       allow(strategy).to receive_messages(full_host: 'https://example.com', script_name: '')
 
-      expect(strategy.callback_url).to eq('https://example.com/auth/amazon/callback')
+      expect(strategy.callback_url).to eq('https://example.com/auth/amazon_business/callback')
     end
 
     it 'includes script_name when present' do
       allow(strategy).to receive_messages(full_host: 'https://example.com', script_name: '/sub_uri')
 
-      expect(strategy.callback_url).to eq('https://example.com/sub_uri/auth/amazon/callback')
+      expect(strategy.callback_url).to eq('https://example.com/sub_uri/auth/amazon_business/callback')
     end
   end
 
@@ -143,7 +143,7 @@ RSpec.describe OmniAuth::Strategies::Amazon do
 
   describe '#callback_path' do
     it 'has the correct callback path' do
-      expect(strategy.callback_path).to eq('/auth/amazon/callback')
+      expect(strategy.callback_path).to eq('/auth/amazon_business/callback')
     end
   end
 end
