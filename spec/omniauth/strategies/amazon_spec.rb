@@ -21,7 +21,8 @@ RSpec.describe OmniAuth::Strategies::Amazon do
     {
       'user_id' => 'amzn1.account.K2LI23KL2LK2',
       'email' => 'user@example.com',
-      'name' => 'Jane Doe'
+      'name' => 'Jane Doe',
+      'postal_code' => '98101'
     }
   end
 
@@ -64,6 +65,10 @@ RSpec.describe OmniAuth::Strategies::Amazon do
 
     it 'returns the name' do
       expect(strategy.info['name']).to eq('Jane Doe')
+    end
+
+    it 'returns the postal_code' do
+      expect(strategy.info['postal_code']).to eq('98101')
     end
   end
 
