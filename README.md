@@ -1,6 +1,6 @@
 # OmniAuth::Amazon
 
-[![CI](https://github.com/CanalWestStudio/omniauth-amazon/actions/workflows/ci.yml/badge.svg)](https://github.com/CanalWestStudio/omniauth-amazon/actions/workflows/ci.yml)
+[![CI](https://github.com/CanalWestStudio/omniauth-amazon-business/actions/workflows/ci.yml/badge.svg)](https://github.com/CanalWestStudio/omniauth-amazon-business/actions/workflows/ci.yml)
 [![Gem Version](https://badge.fury.io/rb/omniauth-amazon.svg)](https://badge.fury.io/rb/omniauth-amazon)
 
 [Amazon Business](https://developer-docs.amazon.com/amazon-business/docs) OAuth2 strategy for OmniAuth 2.x.
