@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['stafford.brunk@gmail.com']
   spec.description   = 'Amazon Business OAuth2 strategy for OmniAuth'
   spec.summary       = 'Amazon Business OAuth2 strategy for OmniAuth'
-  spec.homepage      = 'https://github.com/wingrunr21/omniauth-amazon'
+  spec.homepage      = 'https://github.com/CanalWestStudio/omniauth-amazon'
   spec.license       = 'MIT'
 
   spec.required_ruby_version = '>= 3.1'

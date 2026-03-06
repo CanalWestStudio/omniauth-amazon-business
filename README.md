@@ -1,67 +1,104 @@
 # OmniAuth::Amazon
-[![Build Status](https://travis-ci.org/wingrunr21/omniauth-amazon.png)](https://travis-ci.org/wingrunr21/omniauth-amazon) [![Gem Version](https://badge.fury.io/rb/omniauth-amazon.png)](http://badge.fury.io/rb/omniauth-amazon)
 
-[Login with Amazon Business](https://developer-docs.amazon.com/amazon-business/docs/website-authorization-workflow) OAuth2 strategy for OmniAuth 1.0
+[![CI](https://github.com/CanalWestStudio/omniauth-amazon/actions/workflows/ci.yml/badge.svg)](https://github.com/CanalWestStudio/omniauth-amazon/actions/workflows/ci.yml)
+[![Gem Version](https://badge.fury.io/rb/omniauth-amazon.svg)](https://badge.fury.io/rb/omniauth-amazon)
+
+[Amazon Business](https://developer-docs.amazon.com/amazon-business/docs) OAuth2 strategy for OmniAuth 2.x.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add to your Gemfile:
 
-    gem 'omniauth-amazon'
+```ruby
+gem 'omniauth-amazon'
+```
 
-And then execute:
+## Prerequisites
 
-    $ bundle
+Register your application in the [Amazon Business Solution Provider Portal](https://developer-docs.amazon.com/amazon-business/docs/onboarding-overview). You will need:
 
-Or install it yourself as:
+- A **client ID** and **client secret** (for token exchange)
+- An **application ID** (`amzn1.sp.solution.*`) (for the authorize URL)
+- A whitelisted callback URL: `https://your-app.com/auth/amazon/callback`
 
-    $ gem install omniauth-amazon
-
-## Prereqs
-
-This gem is configured for use with Amazon Business [Onboarding Overview](https://developer-docs.amazon.com/amazon-business/docs/onboarding-overview).
-
-    
-    https://your_website_here/users/auth/amazon/callback
-
-Amazon requires HTTPS for the whitelisted callback URL.
+Amazon requires HTTPS for the callback URL.
 
 ## Usage
 
-Usage is similar to other OAuth2 based OmniAuth strategies:
-
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  config.omniauth provider, args[:public_key], args[:private_key], args[:options]
+  provider :amazon, ENV['AMAZON_CLIENT_ID'], ENV['AMAZON_CLIENT_SECRET'],
+    application_id: ENV['AMAZON_APPLICATION_ID'],
+    version: 'beta'
 end
 ```
 
-Credentials require authorize_params option
+OmniAuth 2.x requires POST requests to initiate authentication. Use `button_to` instead of `link_to`:
 
-```yaml
-amazon:
-  public_key: ''
-  private_key: '' 
-  scope: 'profile' \\ check docs for your congirgurations
-  state: ''
-  authorize_params:
-    applicationId: '' \\ required
-    version: 'beta' \\ check app settings for your congirguration
+```erb
+<%= button_to 'Sign in with Amazon Business', '/auth/amazon' %>
+```
+
+## Auth Hash
+
+After successful authentication, `request.env['omniauth.auth']` contains:
+
+```ruby
+{
+  provider: 'amazon',
+  uid: 'amzn1.account.K2LI23KL2LK2',
+  info: {
+    email: 'user@example.com',
+    name: 'Jane Doe'
+  },
+  credentials: {
+    token: 'ACCESS_TOKEN',
+    refresh_token: 'REFRESH_TOKEN',
+    expires_at: 1234567890,
+    expires: true
+  },
+  extra: {
+    raw_info: {
+      user_id: 'amzn1.account.K2LI23KL2LK2',
+      email: 'user@example.com',
+      name: 'Jane Doe'
+    }
+  }
+}
 ```
 
 ## Configuration
 
-Config options can be passed to `provider` via a `Hash`:
+| Option | Description |
+|--------|-------------|
+| `application_id` | Your SP application ID (`amzn1.sp.solution.*`). Sent as `applicationId` in the authorize URL. |
+| `version` | API version (e.g., `'beta'`). Check your app settings. |
+| `client_options` | Override default OAuth2 endpoints (see below). |
 
-* `scope`: A space-separated list of permissions. Can be `profile`,
-  `postal_code`, `profile:user_id`, or a combination of options.  
-  Defaults to: `profile postal_code`
-    * Requesting the `profile:user_id` scope will not display an additional consent
-      screen the first time the user logs in.
+### Regional Endpoints
+
+The default endpoints target North America. Override for other regions:
+
+```ruby
+provider :amazon, KEY, SECRET,
+  application_id: APP_ID,
+  client_options: {
+    site: 'https://www.amazon.co.uk',
+    token_url: 'https://api.amazon.co.uk/auth/o2/token'
+  }
+```
+
+| Region | Site | Token URL |
+|--------|------|-----------|
+| NA | `https://www.amazon.com` | `https://api.amazon.com/auth/o2/token` |
+| EU | `https://www.amazon.co.uk` | `https://api.amazon.co.uk/auth/o2/token` |
+| FE | `https://www.amazon.co.jp` | `https://api.amazon.co.jp/auth/o2/token` |
 
 ## Resources
-* [Amazon Business Docs](https://developer-docs.amazon.com/amazon-business/docs)
 
+- [Amazon Business API Docs](https://developer-docs.amazon.com/amazon-business/docs)
+- [Onboarding Overview](https://developer-docs.amazon.com/amazon-business/docs/onboarding-overview)
+- [Authorization Workflow](https://developer-docs.amazon.com/amazon-business/docs/website-authorization-workflow)
 
 ## Contributing
 
