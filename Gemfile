@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gemspec
+gemspec name: 'omniauth-amazon-business'
 
 group :development, :test do
   gem 'rake', '~> 13.0'

@@ -4,8 +4,8 @@ require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
-    class Amazon < OmniAuth::Strategies::OAuth2
-      option :name, 'amazon'
+    class AmazonBusiness < OmniAuth::Strategies::OAuth2
+      option :name, 'amazon_business'
 
       option :client_options, {
         site: 'https://www.amazon.com',

@@ -2,11 +2,11 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'omniauth/amazon/version'
+require 'omniauth/amazon_business/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'omniauth-amazon'
-  spec.version       = OmniAuth::Amazon::VERSION
+  spec.name          = 'omniauth-amazon-business'
+  spec.version       = OmniAuth::AmazonBusiness::VERSION
   spec.authors       = ['Stafford Brunk']
   spec.email         = ['stafford.brunk@gmail.com']
   spec.description   = 'Amazon Business OAuth2 strategy for OmniAuth'
